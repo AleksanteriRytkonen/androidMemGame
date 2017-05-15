@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,11 +17,13 @@ public class MainActivity extends AppCompatActivity {
     ImageView i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12;
 
     Integer[] imageArray = {1, 2, 3, 4, 5 , 6, 11, 12, 13, 14, 15, 16};
+    TextView scoreText;
 
     int img1, img2, img3, img4, img5, img6, img10, img20, img30, img40, img50, img60;
 
     int firstCard, secondCard;
     int firstClicked, secondClicked;
+    int score;
     int cardNum = 1;
 
     @Override
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         i11 = (ImageView) this.findViewById(R.id.i11);
         i12 = (ImageView) this.findViewById(R.id.i12);
 
+        scoreText = (TextView)this.findViewById(R.id.score);
+
         i1.setTag("0");
         i2.setTag("1");
         i3.setTag("2");
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         i10.setTag("9");
         i11.setTag("10");
         i12.setTag("11");
+
+        score = 0;
 
         loadCardImages();
 
@@ -189,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleTurn() {
         if (firstCard == secondCard) {
+            score += 10;
             if (firstClicked == 0) {
                 i1.setVisibility(View.INVISIBLE);
             } else if (firstClicked == 1) {
@@ -240,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 i12.setVisibility(View.INVISIBLE);
             }
         } else {
+            score -= 5;
             i1.setImageResource(R.drawable.empty);
             i2.setImageResource(R.drawable.empty);
             i3.setImageResource(R.drawable.empty);
@@ -253,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
             i11.setImageResource(R.drawable.empty);
             i12.setImageResource(R.drawable.empty);
         }
+        this.scoreText.setText("Pisteet: " + score);
         i1.setEnabled(true);
         i2.setEnabled(true);
         i3.setEnabled(true);
